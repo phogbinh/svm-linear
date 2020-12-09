@@ -31,8 +31,10 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
 
     a = [0; y];
     
-    if rank([M a]) ~= rank(M)
-        continue;
+    if rank([M a]) == rank(M) + 1
+        continue; % no solution: 'a' does not live in the column space of M
+    elseif rank([M a]) ~= rank(M)
+        throw( MException(1, 'rank([M a]) < rank(M) || rank([M a]) > rank(M) + 1') );
     end
     
     % if linear transformation M squishs the space into a lower dimension,
