@@ -31,9 +31,6 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
 
     a = [0; y];
     
-    % if linear transformation [M a] transforms the space into the same
-    % dimension as linear transformation M, then there must be at least one
-    % solution.
     if rank([M a]) ~= rank(M)
         continue;
     end
