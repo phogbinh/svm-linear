@@ -83,14 +83,14 @@ test_data_N = numel( test_data(:, 1) );
 
 test_correct = 0;
 for i = 1:test_data_N
-	decision = dot( final_w, transpose( test_data(i, 1:2) ) ) + final_b;
-	predict = -1;
-	if decision >= 0 % points on the separator line set positive
+    decision = dot( final_w, transpose( test_data(i, 1:2) ) ) + final_b;
+    predict = -1;
+    if decision >= 0 % points on the separator line set positive
         predict = 1;
     end
-	if predict == test_data(i, 3)
+    if predict == test_data(i, 3)
         test_correct = test_correct + 1;
-	end
+    end
 end
 
 accuracy = test_correct / test_data_N
