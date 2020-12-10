@@ -78,6 +78,8 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     end
 end
 
+save('train.mat', 'train_w', 'train_b');
+
 test_data = [1 1 -1; 2 0 -1; 3 1 1; 4 2 1];
 test_data_N = numel( test_data(:, 1) );
 
