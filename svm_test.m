@@ -1,7 +1,7 @@
 w = matfile('train.mat').train_w;
 b = matfile('train.mat').train_b;
 
-test_data = [1 1 -1; 2 0 -1; 3 1 1; 4 2 1];
+test_data = readmatrix('data/basic_test');
 test_data_N = numel( test_data(:, 1) );
 
 test_correct = 0;
