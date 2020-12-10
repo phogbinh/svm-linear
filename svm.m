@@ -18,18 +18,18 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     gutters_N = numel( gutters(:, 1) );
     
     xg = gutters(:, 1:2);
-    y = gutters(:, 3);
+    yg = gutters(:, 3);
     
     M = zeros(gutters_N + 1, gutters_N + 1);
-    M(1, :) = [transpose(y) 0];
+    M(1, :) = [transpose(yg) 0];
     for i = 2:(gutters_N + 1)
         for j = 1:gutters_N
-            M(i, j) = dot( xg(i-1, :), xg(j, :) ) * y(j);
+            M(i, j) = dot( xg(i-1, :), xg(j, :) ) * yg(j);
         end
         M(i, gutters_N + 1) = 1;
     end
 
-    a = [0; y];
+    a = [0; yg];
     
     if rank([M a]) == rank(M) + 1
         continue; % no solution: 'a' does not live in the column space of M
@@ -49,7 +49,7 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     b = s(gutters_N + 1);
     
     lamda = s(1:gutters_N);
-    sub_w = lamda .* y .* xg;
+    sub_w = lamda .* yg .* xg;
     w = zeros(2, 1);
     for i = 1:gutters_N
         w = w + transpose( sub_w(i) );
