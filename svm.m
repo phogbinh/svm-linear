@@ -6,8 +6,8 @@ r = train_data(:, 3);
 
 train_correct = 0;
 f_min = inf; % optimization for widest street
-final_w = -1;
-final_b = -1;
+final_w = nan;
+final_b = nan;
 for combination = 1:( bitshift(1, train_data_N) - 1 )
     gutters = [];
     for i = 1:train_data_N
