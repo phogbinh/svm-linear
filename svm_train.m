@@ -8,7 +8,7 @@ train_correct = 0;
 f_min = inf; % optimization for widest street
 train_xg = nan;
 train_yg = nan;
-train_lamda = nan;
+train_lambda = nan;
 train_b = nan;
 for combination = 1:( bitshift(1, train_data_N) - 1 )
     gutters = zeros(train_data_N, 3);
@@ -50,14 +50,14 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
         s = M \ a;
     end
     
-    lamda = s(1:gutters_N);
+    lambda = s(1:gutters_N);
     b = s(gutters_N + 1);
     
     correct = 0;
     for i = 1:train_data_N
         decision = 0;
         for j = 1:gutters_N
-            decision = decision + lamda(j) * yg(j) * kernel( transpose( xg(j, :) ), transpose( x(i, :) ) );
+            decision = decision + lambda(j) * yg(j) * kernel( transpose( xg(j, :) ), transpose( x(i, :) ) );
         end
         decision = decision + b;
         predict = 0;
@@ -74,7 +74,7 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     f = 0;
     for i = 1:gutters_N
         for j = 1:gutters_N
-            f = f + lamda(i) * lamda(j) * yg(i) * yg(j) * kernel( transpose( xg(i, :) ), transpose( xg(j, :) ) );
+            f = f + lambda(i) * lambda(j) * yg(i) * yg(j) * kernel( transpose( xg(i, :) ), transpose( xg(j, :) ) );
         end
     end
     if correct > train_correct || (correct == train_correct && f < f_min)
@@ -82,9 +82,9 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
         f_min = f;
         train_xg = xg;
         train_yg = yg;
-        train_lamda = lamda;
+        train_lambda = lambda;
         train_b = b;
     end
 end
 
-save('train.mat', 'train_xg', 'train_yg', 'train_lamda', 'train_b');
+save('train.mat', 'train_xg', 'train_yg', 'train_lambda', 'train_b');
