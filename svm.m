@@ -85,7 +85,7 @@ test_correct = 0;
 for i = 1:test_data_N
     decision = dot( final_w, transpose( test_data(i, 1:2) ) ) + final_b;
     predict = -1;
-    if decision >= 0 % points on the separator line set positive
+    if decision >= 0 % points on separator line are set positive
         predict = 1;
     end
     if predict == test_data(i, 3)
