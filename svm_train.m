@@ -1,4 +1,4 @@
-train_data = [1 2 -1; 2 1 -1; 3 2 1; 4 3 1];
+train_data = readmatrix('data/basic_train');
 train_data_N = numel( train_data(:, 1) );
 
 x = train_data(:, 1:2);
