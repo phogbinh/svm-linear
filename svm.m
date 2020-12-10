@@ -7,7 +7,7 @@ r = train_data(:, 3);
 train_correct = 0;
 f_min = inf; % optimization for widest street
 train_w = nan;
-final_b = nan;
+train_b = nan;
 for combination = 1:( bitshift(1, train_data_N) - 1 )
     gutters = [];
     for i = 1:train_data_N
@@ -74,7 +74,7 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
         train_correct = correct;
         f_min = f;
         train_w = w;
-        final_b = b;
+        train_b = b;
     end
 end
 
@@ -83,7 +83,7 @@ test_data_N = numel( test_data(:, 1) );
 
 test_correct = 0;
 for i = 1:test_data_N
-    decision = dot( train_w, transpose( test_data(i, 1:2) ) ) + final_b;
+    decision = dot( train_w, transpose( test_data(i, 1:2) ) ) + train_b;
     predict = -1;
     if decision >= 0 % points on separator line are set positive
         predict = 1;
