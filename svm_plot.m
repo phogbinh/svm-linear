@@ -35,14 +35,14 @@ b = matfile('train.mat').train_b;
 [x_neg, y_neg] = plot_linear(w(1), w(2), b+1, xmin, xmax, ymin, ymax);
 [x_pos, y_pos] = plot_linear(w(1), w(2), b-1, xmin, xmax, ymin, ymax);
 
-figure
+figure;
 xlim([xmin xmax]);
 ylim([ymin ymax]);
-hold on
+hold on;
 plot(x_neg, y_neg, 'b');
 plot(x_pos, y_pos, 'r');
 plot(train_pos(:, 1), train_pos(:, 2), '+r', ...
      'MarkerSize', 10);
 plot(train_neg(:, 1), train_neg(:, 2), 'ob', ...
      'MarkerSize', 10);
-hold off
+hold off;
