@@ -25,12 +25,19 @@ end
 train_pos = train_pos(1:train_pos_N, :);
 train_neg = train_neg(1:train_neg_N, :);
 
+xmin = xmin - 1;
+xmax = xmax + 1;
+ymin = ymin - 1;
+ymax = ymax + 1;
+
 w = matfile('train.mat').train_w;
 b = matfile('train.mat').train_b;
 [x_neg, y_neg] = plot_linear(w(1), w(2), b+1, xmin, xmax, ymin, ymax);
 [x_pos, y_pos] = plot_linear(w(1), w(2), b-1, xmin, xmax, ymin, ymax);
 
 figure
+xlim([xmin xmax]);
+ylim([ymin ymax]);
 hold on
 plot(x_neg, y_neg, 'b');
 plot(x_pos, y_pos, 'r');
