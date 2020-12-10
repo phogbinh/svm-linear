@@ -61,9 +61,9 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     for i = 1:train_data_N
         decision = dot( w, transpose( x(i, :) ) ) + b;
         predict = 0;
-        if decision >= 1
+        if is_equal(decision, 1) || decision > 1
             predict = 1;
-        elseif decision <= -1
+        elseif is_equal(decision, -1) || decision < -1
             predict = -1;
         end
         if predict == r(i)
