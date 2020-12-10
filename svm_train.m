@@ -42,7 +42,7 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     % if linear transformation M squishs the space into a lower dimension,
     % we use Moore-Penrose to solve the linear system; otherwise, standard
     % inverse matrix is used.
-    if det(M) == 0
+    if is_equal(det(M), 0)
         s = pinv(M) * a;
     else
         s = M \ a;
