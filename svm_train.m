@@ -9,13 +9,15 @@ f_min = inf; % optimization for widest street
 train_w = nan;
 train_b = nan;
 for combination = 1:( bitshift(1, train_data_N) - 1 )
-    gutters = [];
+    gutters = zeros(train_data_N, 3);
+    gutters_N = 0;
     for i = 1:train_data_N
         if bitget(combination, i)
-            gutters(end + 1, :) = train_data(i, :);
+            gutters_N = gutters_N + 1;
+            gutters(gutters_N, :) = train_data(i, :);
         end
     end
-    gutters_N = numel( gutters(:, 1) );
+    gutters = gutters(1:gutters_N, :);
     
     xg = gutters(:, 1:2);
     yg = gutters(:, 3);
