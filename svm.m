@@ -52,7 +52,7 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     sub_w = lamda .* yg .* xg;
     w = zeros(2, 1);
     for i = 1:gutters_N
-        w = w + transpose( sub_w(i) );
+        w = w + transpose( sub_w(i, :) );
     end
     
     correct = 0;
