@@ -2,7 +2,7 @@ train_data = [1 2 -1; 2 1 -1; 3 2 1; 4 3 1];
 train_data_N = numel( train_data(:, 1) );
 
 x = train_data(:, 1:2);
-real = train_data(:, 3);
+r = train_data(:, 3);
 
 train_correct = 0;
 f_min = inf; % optimization for widest street
@@ -64,7 +64,7 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
         elseif decision <= -1
             predict = -1;
         end
-        if predict == real(i)
+        if predict == r(i)
             correct = correct + 1;
         end
     end
