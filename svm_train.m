@@ -6,7 +6,9 @@ r = train_data(:, 3);
 
 train_correct = 0;
 f_min = inf; % optimization for widest street
-train_w = nan;
+train_xg = nan;
+train_yg = nan;
+train_lamda = nan;
 train_b = nan;
 for combination = 1:( bitshift(1, train_data_N) - 1 )
     gutters = zeros(train_data_N, 3);
@@ -26,7 +28,7 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
     M(1, :) = [transpose(yg) 0];
     for i = 2:(gutters_N + 1)
         for j = 1:gutters_N
-            M(i, j) = dot( xg(i-1, :), xg(j, :) ) * yg(j);
+            M(i, j) = kernel( xg(i-1, :), xg(j, :) ) * yg(j);
         end
         M(i, gutters_N + 1) = 1;
     end
@@ -48,18 +50,16 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
         s = M \ a;
     end
     
-    b = s(gutters_N + 1);
-    
     lamda = s(1:gutters_N);
-    sub_w = lamda .* yg .* xg;
-    w = zeros(2, 1);
-    for i = 1:gutters_N
-        w = w + transpose( sub_w(i, :) );
-    end
+    b = s(gutters_N + 1);
     
     correct = 0;
     for i = 1:train_data_N
-        decision = dot( w, transpose( x(i, :) ) ) + b;
+        decision = 0;
+        for j = 1:gutters_N
+            decision = decision + lamda(j) * yg(j) * kernel( transpose( xg(j, :) ), transpose( x(i, :) ) );
+        end
+        decision = decision + b;
         predict = 0;
         if is_equal(decision, 1) || decision > 1
             predict = 1;
@@ -71,13 +71,20 @@ for combination = 1:( bitshift(1, train_data_N) - 1 )
         end
     end
     
-    f = dot(w, w);
+    f = 0;
+    for i = 1:gutters_N
+        for j = 1:gutters_N
+            f = f + lamda(i) * lamda(j) * yg(i) * yg(j) * kernel( transpose( xg(i, :) ), transpose( xg(j, :) ) );
+        end
+    end
     if correct > train_correct || (correct == train_correct && f < f_min)
         train_correct = correct;
         f_min = f;
-        train_w = w;
+        train_xg = xg;
+        train_yg = yg;
+        train_lamda = lamda;
         train_b = b;
     end
 end
 
-save('train.mat', 'train_w', 'train_b');
+save('train.mat', 'train_xg', 'train_yg', 'train_lamda', 'train_b');
