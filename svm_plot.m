@@ -50,7 +50,11 @@ end
 figure;
 hold on;
 [~, c] = contourf(C, R, f, [-inf -1 0 1]);
-colormap(jet);
+colormap( [0 0 0.5;
+           0 0.5 1;
+           1 0.5 0;
+           0.5 0 0] );
+caxis([-2 1]);
 drawnow; % make FacePrims available
 fp = c.FacePrims;
 [fp.ColorType] = deal('truecoloralpha'); % default 'truecolor'
