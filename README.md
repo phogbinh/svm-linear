@@ -1,4 +1,4 @@
-# svm-linear
+# SVM Linear
 ## Polynomial kernel
 ### Linearly inseparable
 ![Linearly inseparable](docs/1_linearly_inseparable.png)
