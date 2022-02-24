@@ -1,5 +1,7 @@
 # SVM
 ## Polynomial kernel
+### Scattered
+![Scattered](docs/scattered.png)
 ### Linearly inseparable
 ![Linearly inseparable](docs/1_linearly_inseparable.png)
 ### Rings of Saturn
