@@ -1,4 +1,4 @@
-train_data = readmatrix('data/rings_of_saturn_train');
+train_data = readmatrix(Def.DATA_FILENAME);
 train_data_N = numel( train_data(:, 1) );
 
 x = train_data(:, 1:2);
